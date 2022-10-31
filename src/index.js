@@ -84,6 +84,26 @@ const getEpisodes = async (id) => {
   return data;
 };
 
+const getTrending = async () => {
+  const url = `${process.env.API_URL}/api/1.0/podcasts/trending?max=9`;
+
+  let apiTime = Math.floor(Date.now() / 1000);
+
+  let options = {
+    method: 'GET',
+    headers: {
+      'X-Auth-Date': '' + apiTime,
+      'X-Auth-Key': process.env.API_KEY,
+      Authorization: getAuth(),
+      'User-Agent': 'Podcast Directory/1.0',
+    },
+  };
+
+  const response = await fetch(url, options);
+  const data = await response.json();
+  return data;
+};
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
@@ -104,6 +124,11 @@ app.get('/episodes/:id', async (req, res) => {
   let id = req.params.id;
   let episodes = await getEpisodes(id);
   res.json(episodes);
+});
+
+app.get('/trending', async (req, res) => {
+  let trending = await getTrending();
+  res.json(trending);
 });
 
 const PORT = process.env.PORT || 3001;
