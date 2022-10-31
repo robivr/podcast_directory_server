@@ -85,7 +85,7 @@ const getEpisodes = async (id) => {
 };
 
 const getTrending = async () => {
-  const url = `${process.env.API_URL}/api/1.0/podcasts/trending?max=9`;
+  const url = `${process.env.API_URL}/api/1.0/podcasts/trending?max=12`;
 
   let apiTime = Math.floor(Date.now() / 1000);
 
