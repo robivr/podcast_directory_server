@@ -25,8 +25,12 @@ const getAuth = () => {
 const getSearchResults = async (query) => {
   const encodedQuery = encodeURI(query);
   const url = `${process.env.API_URL}/api/1.0/search/byterm?q=${encodedQuery}`;
-  console.log('URL: ', url);
-  console.log('query: ', encodedQuery);
+
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('URL: ', url);
+    console.log('query: ', encodedQuery);
+  }
+
   let apiTime = Math.floor(Date.now() / 1000);
 
   let options = {
